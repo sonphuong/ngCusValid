@@ -1,0 +1,37 @@
+<!doctype html>
+<html ng-app="backend">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="validator.js"></script>
+    <style>
+      .error {
+        color: red;
+      }
+      .error input{
+        border: solid 1px red;
+      }
+      input:focus {
+        border: solid 1px red;
+      }
+    </style>
+  </head>
+<body>
+  <form id="frmSurvey" name="frmSurvey"  ng-controller="SurveyController">
+    <div>
+      <lable for="article_url">URL:</lable>
+      <input type="text" name="article_url" required
+             check-valid-url
+             ng-class="{error: (frmSurvey.article_url.$invalid && frmSurvey.article_url.$dirty)}"
+             ng-forcus="(frmSurvey.article_url.$invalid && frmSurvey.article_url.$dirty)"
+             ng-model="surveyForm.articleUrl"/>
+      <span class="error" ng-if="isFormChecked && frmSurvey.article_url.$error.required">required</span>
+      <span class="error" ng-if="frmSurvey.article_url.$error.pattern">invalid url</span>
+    </div>
+    <div>
+      <button type="button" ng-disabled="frmSurvey.$invalid" ng-click="submitForm()">Submit</button>
+      <button type="button" ng-click="submitForm()">Submit</button>
+    </div>
+    <div ng-if="isFrmValid"><h1>Valid</h1></div>
+  </form>
+</body>
+</html>
